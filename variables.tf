@@ -1,0 +1,15 @@
+variable "gcloud-region" {
+  default = "europe-central2"
+}
+
+variable "gcloud-zone" {
+  default = "europe-central2-a"
+}
+
+variable "gcloud-project" {
+  default = "fiery-caldron-327909"
+}
+
+variable "gcloud-platform" {
+  default = "cks-gcp-platform"
+}
