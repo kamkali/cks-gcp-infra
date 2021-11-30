@@ -19,7 +19,7 @@ resource "google_compute_firewall" "ssh" {
   }
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443"]
+    ports    = ["22", "80", "443", "6443", "2379-2380", "10250-10260", "30000-32767"]
   }
   source_ranges = ["0.0.0.0/0"]
 }
@@ -38,4 +38,14 @@ resource "google_dns_record_set" "dev-k8s-endpoint-platform-dns" {
   managed_zone = google_dns_managed_zone.platform-dns.name
 
   rrdatas = [var.master-node-endpoint]
+}
+
+resource "google_dns_record_set" "dev-worker1-endpoint-dns" {
+  name = "worker.1.${google_dns_managed_zone.platform-dns.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = google_dns_managed_zone.platform-dns.name
+
+  rrdatas = [var.worker-1-node-endpoint]
 }

@@ -17,6 +17,7 @@ module "network" {
   source               = "./network"
   gcloud-platform      = var.gcloud-platform
   master-node-endpoint = module.cluster.master-node-endpoint
+  worker-1-node-endpoint = module.cluster.worker-1-node-endpoint
 }
 
 module "cluster" {

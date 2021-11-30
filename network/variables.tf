@@ -9,3 +9,7 @@ variable "gcloud-region" {
 variable "master-node-endpoint" {
   type = string
 }
+
+variable "worker-1-node-endpoint" {
+  type = string
+}
