@@ -10,16 +10,12 @@ resource "google_compute_subnetwork" "cks-cluster-network" {
 }
 
 
-resource "google_compute_firewall" "ssh" {
-  name    = "${var.gcloud-platform}-ssh"
+resource "google_compute_firewall" "allow-all" {
+  name    = "${var.gcloud-platform}-allow-all"
   network = google_compute_network.platform.name
 
   allow {
-    protocol = "icmp"
-  }
-  allow {
-    protocol = "tcp"
-    ports    = ["22", "80", "443", "6443", "2379-2380", "10250-10260", "30000-32767"]
+    protocol = "all"
   }
   source_ranges = ["0.0.0.0/0"]
 }

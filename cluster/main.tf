@@ -1,7 +1,8 @@
 resource "google_compute_instance" "master" {
-  machine_type = "e2-medium"
+  machine_type = "e2-standard-2"
   zone         = var.gcloud-zone
   name         = "master-node"
+  allow_stopping_for_update = true
   boot_disk {
     initialize_params {
       size  = 20
@@ -20,9 +21,10 @@ resource "google_compute_instance" "master" {
 
 
 resource "google_compute_instance" "worker1" {
-  machine_type = "e2-small"
+  machine_type = "e2-standard-2"
   zone         = var.gcloud-zone
   name         = "worker-1-node"
+  allow_stopping_for_update = true
   boot_disk {
     initialize_params {
       size  = 15
