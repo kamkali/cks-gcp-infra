@@ -31,3 +31,11 @@ variable "gcloud-project" {
 variable "gcloud-platform" {
   default = "cks-gcp-platform"
 }
+
+variable "master-address" {
+  type = string
+}
+
+variable "worker1-address" {
+  type = string
+}

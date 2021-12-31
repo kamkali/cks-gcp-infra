@@ -13,3 +13,11 @@ variable "gcloud-project" {
 variable "gcloud-platform" {
   default = "cks-gcp-platform"
 }
+
+variable "master-node" {
+  default = "master-node"
+}
+
+variable "worker-1-node" {
+  default = "worker1-node"
+}

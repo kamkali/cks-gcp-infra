@@ -8,20 +8,22 @@ terraform {
 }
 
 provider "google" {
-  project     = var.gcloud-project
-  region      = var.gcloud-region
-  zone        = var.gcloud-zone
+  project = var.gcloud-project
+  region  = var.gcloud-region
+  zone    = var.gcloud-zone
 }
 
 module "network" {
-  source               = "./network"
-  gcloud-platform      = var.gcloud-platform
-  master-node-endpoint = module.cluster.master-node-endpoint
-  worker-1-node-endpoint = module.cluster.worker-1-node-endpoint
+  source          = "./network"
+  gcloud-platform = var.gcloud-platform
+  master-node     = var.master-node
+  worker-1-node   = var.worker-1-node
 }
 
 module "cluster" {
   source          = "./cluster"
   main-subnetwork = module.network.main-subnetwork
+  master-address  = module.network.master-address
+  worker1-address = module.network.worker1-address
 }
 

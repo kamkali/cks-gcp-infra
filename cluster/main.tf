@@ -1,7 +1,7 @@
 resource "google_compute_instance" "master" {
-  machine_type = "e2-standard-2"
-  zone         = var.gcloud-zone
-  name         = "master-node"
+  machine_type              = "e2-standard-2"
+  zone                      = var.gcloud-zone
+  name                      = "master-node"
   allow_stopping_for_update = true
   boot_disk {
     initialize_params {
@@ -11,7 +11,9 @@ resource "google_compute_instance" "master" {
   }
   network_interface {
     subnetwork = var.main-subnetwork
-    access_config {}
+    access_config {
+      nat_ip = var.master-address
+    }
   }
 
   metadata = {
@@ -21,9 +23,9 @@ resource "google_compute_instance" "master" {
 
 
 resource "google_compute_instance" "worker1" {
-  machine_type = "e2-standard-2"
-  zone         = var.gcloud-zone
-  name         = "worker-1-node"
+  machine_type              = "e2-standard-2"
+  zone                      = var.gcloud-zone
+  name                      = "worker-1-node"
   allow_stopping_for_update = true
   boot_disk {
     initialize_params {
@@ -33,7 +35,9 @@ resource "google_compute_instance" "worker1" {
   }
   network_interface {
     subnetwork = var.main-subnetwork
-    access_config {}
+    access_config {
+      nat_ip = var.worker1-address
+    }
   }
 
   metadata = {

@@ -6,10 +6,10 @@ variable "gcloud-region" {
   default = "europe-central2"
 }
 
-variable "master-node-endpoint" {
+variable "master-node" {
   type = string
 }
 
-variable "worker-1-node-endpoint" {
+variable "worker-1-node" {
   type = string
 }

@@ -26,22 +26,31 @@ resource "google_dns_managed_zone" "platform-dns" {
   description = "cks-training-kkal.com DNS zone"
 }
 
-resource "google_dns_record_set" "dev-k8s-endpoint-platform-dns" {
-  name = "k8s.${google_dns_managed_zone.platform-dns.dns_name}"
-  type = "A"
-  ttl  = 300
-
-  managed_zone = google_dns_managed_zone.platform-dns.name
-
-  rrdatas = [var.master-node-endpoint]
+resource "google_compute_address" "master" {
+  name = "${var.master-node}-ip"
 }
 
-resource "google_dns_record_set" "dev-worker1-endpoint-dns" {
-  name = "worker.1.${google_dns_managed_zone.platform-dns.dns_name}"
+resource "google_dns_record_set" "dev-k8s-endpoint-platform-dns" {
+  name = "master.${google_dns_managed_zone.platform-dns.dns_name}"
   type = "A"
   ttl  = 300
 
   managed_zone = google_dns_managed_zone.platform-dns.name
 
-  rrdatas = [var.worker-1-node-endpoint]
+  rrdatas = [google_compute_address.master.address]
+}
+
+resource "google_compute_address" "worker1" {
+  name = "${var.worker-1-node}-ip"
+}
+
+
+resource "google_dns_record_set" "dev-worker1-endpoint-dns" {
+  name = "worker1.${google_dns_managed_zone.platform-dns.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = google_dns_managed_zone.platform-dns.name
+
+  rrdatas = [google_compute_address.worker1.address]
 }
